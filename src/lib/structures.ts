@@ -1,4 +1,4 @@
-enum RenderStyle {
+export enum RenderStyle {
     ARROW,
     POINT,
 }
