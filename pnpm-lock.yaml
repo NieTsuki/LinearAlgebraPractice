@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      p5-svelte:
+        specifier: ^3.1.2
+        version: 3.1.2(@types/p5@1.7.6)(p5@1.11.2)
     devDependencies:
       '@eslint/compat':
         specifier: ^1.2.5
@@ -438,6 +442,9 @@ packages:
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
+
+  '@types/p5@1.7.6':
+    resolution: {integrity: sha512-6pLTOo0V3N5jZb5nTwjiv3lPHLK3Z/TjbhQUj8CTWXocUk1Z/f6OHTp3Pcwi1BhWnf5gqKUcyEb1gP0KIJuQgw==}
 
   '@typescript-eslint/eslint-plugin@8.21.0':
     resolution: {integrity: sha512-eTH+UOR4I7WbdQnG4Z48ebIA6Bgi7WO8HvFEneeYBxG8qCOYgTOFPSg6ek9ITIDvGjDQzWHcoWHCDO2biByNzA==}
@@ -1012,6 +1019,15 @@ packages:
   p-locate@5.0.0:
     resolution: {integrity: sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==}
     engines: {node: '>=10'}
+
+  p5-svelte@3.1.2:
+    resolution: {integrity: sha512-lcfWh+cJ1/wRdIXHnjpYmDgj2h3TCy1QJVQnf/cBcFWS8CSkvyAN5F8u8H2U8qBUtZ4XaD3nd+1NoYUMHaMExQ==}
+    peerDependencies:
+      '@types/p5': ^1.4.2
+      p5: ^1.4.0
+
+  p5@1.11.2:
+    resolution: {integrity: sha512-kvtMTmxJexkbfuaVThg/1JE6iQyS8tTAqGE1UGbfApKUIzDc5hHM23hc08FV3jG0jlNS2En9kqZDb4FrJ8x+kg==}
 
   package-json-from-dist@1.0.1:
     resolution: {integrity: sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==}
@@ -1660,6 +1676,8 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
+  '@types/p5@1.7.6': {}
+
   '@typescript-eslint/eslint-plugin@8.21.0(@typescript-eslint/parser@8.21.0(eslint@9.18.0(jiti@1.21.7))(typescript@5.7.3))(eslint@9.18.0(jiti@1.21.7))(typescript@5.7.3)':
     dependencies:
       '@eslint-community/regexpp': 4.12.1
@@ -2251,6 +2269,13 @@ snapshots:
   p-locate@5.0.0:
     dependencies:
       p-limit: 3.1.0
+
+  p5-svelte@3.1.2(@types/p5@1.7.6)(p5@1.11.2):
+    dependencies:
+      '@types/p5': 1.7.6
+      p5: 1.11.2
+
+  p5@1.11.2: {}
 
   package-json-from-dist@1.0.1: {}
 
