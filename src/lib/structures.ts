@@ -1,4 +1,4 @@
-export enum RenderStyle {
+export enum VectorDrawStyle {
     ARROW,
     POINT,
 }
@@ -6,9 +6,9 @@ export enum RenderStyle {
 export class Vector2 {
     x: number;
     y: number;
-    style: RenderStyle;
+    style: VectorDrawStyle;
 
-    constructor(x: number, y: number, style: RenderStyle = RenderStyle.ARROW) {
+    constructor(x: number, y: number, style: VectorDrawStyle = VectorDrawStyle.ARROW) {
         this.x = x;
         this.y = y;
         this.style = style;
@@ -18,7 +18,7 @@ export class Vector2 {
 export class Vector3 extends Vector2 {
     z: number;
 
-    constructor(x: number, y: number, z: number, style: RenderStyle = RenderStyle.ARROW) {
+    constructor(x: number, y: number, z: number, style: VectorDrawStyle = VectorDrawStyle.ARROW) {
         super(x, y, style);
         this.z = z;
     }

@@ -1,5 +1,5 @@
 import type { p5 } from "p5-svelte";
-import { Vector2, RenderStyle } from "$lib/structures";
+import { Vector2, VectorDrawStyle } from "$lib/structures";
 
 // Settings
 const SIZE = 20;
@@ -56,7 +56,7 @@ function drawVectors(p5: p5) {
         const x = vector.x * cellSize[0];
         const y = -vector.y * cellSize[1];
 
-        if (vector.style === RenderStyle.ARROW) {
+        if (vector.style === VectorDrawStyle.ARROW) {
             p5.line(0, 0, x, y);
             p5.push();
             const angle = p5.atan2(-y, -x);
