@@ -8,7 +8,7 @@
     function sketch(p5: p5) {
         p5.setup = () => setup(p5, sketchParent);
         p5.draw = () => draw(p5);
-        p5.mouseClicked = mouseClicked;
+        p5.mouseClicked = (event: PointerEvent) => mouseClicked(p5, event);
     }
 </script>
 

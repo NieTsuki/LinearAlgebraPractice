@@ -72,6 +72,10 @@ function drawVectors(p5: p5) {
     p5.pop();
 }
 
-export function mouseClicked(event?: object) {
-
+export function mouseClicked(p5: p5, event: PointerEvent) {
+    const offsetX = p5.map(event.offsetX, 0, p5.width, -p5.width / 2, p5.width / 2);
+    const offsetY = p5.map(event.offsetY, 0, p5.height, p5.height / 2, -p5.height / 2);
+    const x = offsetX / cellSize[0];
+    const y = offsetY / cellSize[1];
+    vectors.push(new Vector2(x, y));
 }
