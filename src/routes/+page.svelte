@@ -1,27 +1,22 @@
 <script lang="ts">
+    import { onMount } from "svelte";
     import P5 from "p5-svelte";
     import type { p5 } from "p5-svelte";
     import * as Tabs from "$lib/components/ui/tabs";
-    import { Vector2, Vector3 } from "$lib/structures";
+    import LocalStorage from "$lib/data";
     import Graph2D from "./graph2D";
     import Graph3D from "./graph3D";
     import type { Graph2DData } from "./graph2D";
     import type { Graph3DData } from "./graph3D";
 
     let sketchParent: HTMLDivElement;
+    let graph2DData: Graph2DData;
+    let graph3DData: Graph3DData;
 
-    const graph2DData: Graph2DData = {
-        size: 20,
-        gridLines: "full",
-        vectors: {"a": [1, 1]},
-    };
-
-    const graph3DData: Graph3DData = {
-        size: 20,
-        gridLines: "full",
-        vectors: {"a": [1, 1, 1]},
-        rotate: {x: 0, y: 0, z: 0},
-    };
+    onMount(() => {
+        graph2DData = LocalStorage.getGraph2DData();
+        graph3DData = LocalStorage.getGraph3DData();
+    });
 </script>
 
 <Tabs.Root>
