@@ -5,7 +5,7 @@ import { Vector3 } from "$lib/structures";
 export interface Graph3DData {
     size: number;
     gridLines: "hidden" | "minimal" | "full";
-    vectors: {[name: string]: Vector3};
+    vectors: {[name: string]: [number, number, number]};
     rotate: {
         x: number;
         y: number;
@@ -43,7 +43,7 @@ export default class Graph3D extends Sketch {
     }
 
     getVectorsArray(): Vector3[] {
-        return Object.values(this.data.vectors);
+        return Object.values(this.data.vectors).map((value) => new Vector3(...value));
     }
 
     drawGrid() {

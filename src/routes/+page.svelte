@@ -13,13 +13,13 @@
     const graph2DData: Graph2DData = {
         size: 20,
         gridLines: "full",
-        vectors: {"a": new Vector2(1, 1)},
+        vectors: {"a": [1, 1]},
     };
 
     const graph3DData: Graph3DData = {
         size: 20,
         gridLines: "full",
-        vectors: {"a": new Vector3(1, 1, 1)},
+        vectors: {"a": [1, 1, 1]},
         rotate: {x: 0, y: 0, z: 0},
     };
 </script>

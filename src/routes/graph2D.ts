@@ -5,7 +5,7 @@ import { Vector2 } from "$lib/structures";
 export interface Graph2DData {
     size: number;
     gridLines: "hidden" | "minimal" | "full";
-    vectors: {[name: string]: Vector2};
+    vectors: {[name: string]: [number, number]};
 }
 
 export default class Graph2D extends Sketch {
@@ -31,7 +31,7 @@ export default class Graph2D extends Sketch {
     }
 
     getVectorsArray(): Vector2[] {
-        return Object.values(this.data.vectors);
+        return Object.values(this.data.vectors).map((value) => new Vector2(...value));
     }
 
     drawGrid() {
@@ -75,6 +75,6 @@ export default class Graph2D extends Sketch {
         const offsetY = this.p5.map(event.offsetY, 0, this.p5.height, this.p5.height / 2, -this.p5.height / 2);
         const x = offsetX / this.cellSize[0];
         const y = offsetY / this.cellSize[1];
-        this.data.vectors[`${x}, ${y}`] = new Vector2(x, y);
+        this.data.vectors[`${x}, ${y}`] = [x, y];
     }
 }
