@@ -5,6 +5,7 @@ import { Vector3 } from "$lib/structures";
 export interface Graph3DData {
     size: number;
     gridLines: "hidden" | "minimal" | "full";
+    vectorStyle: "arrow" | "point",
     vectors: {[name: string]: [number, number, number]};
     rotate: {
         x: number;
@@ -139,9 +140,33 @@ export default class Graph3D extends Sketch {
 
     drawVectors() {
         const size = 50 / this.data.size;
+        const scaleX = this.cellSize[0];
+        const scaleY = this.cellSize[1];
+        const scaleZ = this.cellSize[2];
+
+        this.p5.normalMaterial();
 
         for (const vector of this.getVectorsArray()) {
-            vector.draw(this.p5, size, this.cellSize[0], this.cellSize[1], this.cellSize[2]);
+            const x = vector.x * scaleX;
+            const y = -vector.y * scaleY;
+            const z = vector.z * scaleZ;
+            const mag = Math.sqrt(x ** 2 + y ** 2 + z ** 2);
+            const rotZ = Math.atan2(x, -y);
+            const rotX = Math.atan2(-z, Math.sqrt(x ** 2 + y ** 2));
+
+            if (this.data.vectorStyle === "arrow") {
+                this.p5.rotateZ(rotZ);
+                this.p5.rotateX(rotX);
+                this.p5.translate(0, -mag / 2, 0);
+                this.p5.cylinder(size, mag);
+
+                this.p5.translate(0, -mag / 2 + size, 0);
+                this.p5.rotateX(this.p5.PI);
+                this.p5.cone(size * 3, size * 6);
+            } else {
+                this.p5.translate(x, y, z);
+                this.p5.sphere(size * 2);
+            }
         }
     }
 }

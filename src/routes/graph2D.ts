@@ -5,6 +5,7 @@ import { Vector2 } from "$lib/structures";
 export interface Graph2DData {
     size: number;
     gridLines: "hidden" | "minimal" | "full";
+    vectorStyle: "arrow" | "point",
     vectors: {[name: string]: [number, number]};
 }
 
@@ -61,10 +62,32 @@ export default class Graph2D extends Sketch {
 
     drawVectors() {
         const size = 150 / this.data.size;
+        const scaleX = this.cellSize[0];
+        const scaleY = this.cellSize[1];
+
+        this.p5.push();
+        this.p5.stroke(255);
+        this.p5.strokeWeight(2);
+        this.p5.translate(this.p5.width / 2, this.p5.height / 2);
 
         for (const vector of this.getVectorsArray()) {
-            vector.draw(this.p5, size, this.cellSize[0], this.cellSize[1]);
+            const x = vector.x * scaleX;
+            const y = -vector.y * scaleY;
+
+            if (this.data.vectorStyle === "arrow") {
+                this.p5.line(0, 0, x, y);
+                this.p5.push();
+                const angle = this.p5.atan2(-y, -x);
+                this.p5.translate(x, y);
+                this.p5.rotate(angle - this.p5.HALF_PI);
+                this.p5.triangle(-size * 0.6, size * 1.5, size * 0.6, size * 1.5, 0, 0);
+                this.p5.pop();
+            } else {
+                this.p5.circle(x, y, size);
+            }
         }
+
+        this.p5.pop();
     }
 
     mouseClicked(event: PointerEvent) {

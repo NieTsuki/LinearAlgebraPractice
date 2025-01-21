@@ -8,6 +8,7 @@ export default class LocalStorage {
         if (saved === null) return {
             size: 20,
             gridLines: "full",
+            vectorStyle: "arrow",
             vectors: {"a": [1, 1]},
         };
 
@@ -20,6 +21,7 @@ export default class LocalStorage {
         if (saved === null) return {
             size: 20,
             gridLines: "full",
+            vectorStyle: "arrow",
             vectors: {"a": [1, 1, 1]},
             rotate: {x: 0, y: 0, z: 0},
         };
