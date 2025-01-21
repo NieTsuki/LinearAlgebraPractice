@@ -13,13 +13,13 @@ export default class Graph2D extends Sketch {
     data: Graph2DData;
     cellSize!: [number, number];
 
-    constructor(p5: p5, parent: HTMLDivElement, data: Graph2DData) {
-        super(p5, parent);
+    constructor(p5: p5, w: number, h: number, data: Graph2DData) {
+        super(p5, w, h);
         this.data = data;
     }
 
     setup() {
-        const canvas = this.p5.createCanvas(this.parent.clientWidth, this.parent.clientHeight);
+        const canvas = this.p5.createCanvas(this.w, this.h);
         canvas.mouseClicked((event) => this.mouseClicked(event));
 
         this.cellSize = [this.p5.width / this.data.size, this.p5.height / this.data.size];

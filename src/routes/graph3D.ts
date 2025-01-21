@@ -17,13 +17,13 @@ export default class Graph3D extends Sketch {
     data: Graph3DData;
     cellSize!: [number, number, number];
 
-    constructor(p5: p5, parent: HTMLDivElement, data: Graph3DData) {
-        super(p5, parent);
+    constructor(p5: p5, w: number, h: number, data: Graph3DData) {
+        super(p5, w, h);
         this.data = data;
     }
 
     setup() {
-        this.p5.createCanvas(this.parent.clientWidth, this.parent.clientHeight, this.p5.WEBGL);
+        this.p5.createCanvas(this.w, this.h, this.p5.WEBGL);
 
         this.cellSize = [
             this.p5.width / this.data.size,

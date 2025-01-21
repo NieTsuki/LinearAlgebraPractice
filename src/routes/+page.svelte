@@ -10,7 +10,7 @@
     import type { Graph2DData } from "./graph2D";
     import type { Graph3DData } from "./graph3D";
 
-    let sketchParent: HTMLDivElement;
+    let container: HTMLDivElement;
     let graph2D: Graph2D;
     let graph3D: Graph3D;
     let graph2DData: Graph2DData | undefined = $state();
@@ -30,13 +30,21 @@
         </Tabs.List>
     </div>
 
-    <div bind:this={sketchParent} class="w-screen h-screen">
+    <div bind:this={container} class="w-screen h-screen">
         <Tabs.Content value="2D" class="m-0">
             {#if graph2DData !== undefined}
                 {@const data = graph2DData}
-                <P5 sketch={(p5: p5) => {
-                    graph2D = new Graph2D(p5, sketchParent, data);
-                }} />
+
+                <P5
+                    sketch={(p5: p5) => {
+                        graph2D = new Graph2D(
+                            p5,
+                            container.clientWidth,
+                            container.clientHeight,
+                            data
+                        );
+                    }}
+                />
 
                 <div class="absolute top-0 right-0 p-4">
                     <Button
@@ -55,9 +63,17 @@
         <Tabs.Content value="3D" class="m-0">
             {#if graph3DData !== undefined}
                 {@const data = graph3DData}
-                <P5 sketch={(p5: p5) => {
-                    graph3D = new Graph3D(p5, sketchParent, data);
-                }} />
+
+                <P5
+                    sketch={(p5: p5) => {
+                        graph3D = new Graph3D(
+                            p5,
+                            container.clientWidth,
+                            container.clientHeight,
+                            data
+                        );
+                    }}
+                />
 
                 <div class="absolute top-0 right-0 p-4">
                     <Button

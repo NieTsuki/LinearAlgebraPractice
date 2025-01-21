@@ -2,11 +2,13 @@ import type { p5 } from "p5-svelte";
 
 export default abstract class Sketch {
     p5: p5;
-    parent: HTMLDivElement;
+    w: number;
+    h: number;
 
-    constructor(p5: p5, parent: HTMLDivElement) {
+    constructor(p5: p5, w: number, h: number) {
         this.p5 = p5;
-        this.parent = parent;
+        this.w = w;
+        this.h = h;
 
         p5.setup = () => this.setup();
         p5.draw = () => this.draw();
