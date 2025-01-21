@@ -37,16 +37,16 @@ export default class Graph3D extends Sketch {
 
         const canvas = this.p5.createCanvas(this.w, this.h, this.p5.WEBGL);
 
+        this._handleGestures(canvas.elt);
+    }
+
+    draw() {
         this.cellSize = [
             this.p5.width / this.data.size,
             this.p5.height / this.data.size,
             this.p5.width / this.data.size,
         ];
 
-        this._handleGestures(canvas.elt);
-    }
-
-    draw() {
         this.p5.background(0);
         this.p5.rotateX(this.p5.radians(this.data.rotate.x));
         this.p5.rotateY(this.p5.radians(this.data.rotate.y));

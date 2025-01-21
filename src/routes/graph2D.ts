@@ -18,11 +18,11 @@ export default class Graph2D extends Sketch {
 
         const canvas = this.p5.createCanvas(this.w, this.h);
         canvas.mouseClicked((event) => this.mouseClicked(event));
-
-        this.cellSize = [this.p5.width / this.data.size, this.p5.height / this.data.size];
     }
 
     draw() {
+        this.cellSize = [this.p5.width / this.data.size, this.p5.height / this.data.size];
+
         this.p5.background(0);
         if (this.data.gridLines !== "hidden") this.drawGrid();
         this.drawVectors();

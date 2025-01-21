@@ -4,6 +4,7 @@
     import * as Tabs from "$lib/components/ui/tabs";
     import * as Sheet from "$lib/components/ui/sheet";
     import { Button } from "$lib/components/ui/button";
+    import { Slider } from "$lib/components/ui/slider";
     import SideSheet from "$lib/components/sheet.svelte";
     import LocalStorage from "$lib/data";
     import Graph2D from "./graph2D";
@@ -45,7 +46,10 @@
             </div>
 
             <SideSheet title="Options">
-                <Sheet.Title></Sheet.Title>
+                <div>
+                    <Sheet.Title>Size ({graph2D.data.size})</Sheet.Title>
+                    <Slider type="single" min={2} max={100} step={2} bind:value={graph2D.data.size} />
+                </div>
             </SideSheet>
         </Tabs.Content>
 
@@ -71,7 +75,10 @@
             </div>
 
             <SideSheet title="Options">
-                <Sheet.Title></Sheet.Title>
+                <div>
+                    <Sheet.Title>Size ({graph3D.data.size})</Sheet.Title>
+                    <Slider type="single" min={2} max={100} step={2} bind:value={graph3D.data.size} />
+                </div>
             </SideSheet>
         </Tabs.Content>
     </div>

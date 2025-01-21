@@ -19,7 +19,9 @@
         </Sheet.Trigger>
     </div>
 
-    <Sheet.Content>
-        {@render children()}
+    <Sheet.Content class="bg-background/[0.5] border-none" side="left">
+        <div class="scale-90">
+            {@render children()}
+        </div>
     </Sheet.Content>
 </Sheet.Root>
