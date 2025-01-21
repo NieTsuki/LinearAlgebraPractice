@@ -1,4 +1,4 @@
-export class Vector2 {
+abstract class Vector {
     x: number;
     y: number;
 
@@ -8,14 +8,15 @@ export class Vector2 {
     }
 }
 
-export class Vector3 {
-    x: number;
-    y: number;
+export class Vector2 extends Vector {
+
+}
+
+export class Vector3 extends Vector {
     z: number;
 
     constructor(x: number, y: number, z: number) {
-        this.x = x;
-        this.y = y;
+        super(x, y);
         this.z = z;
     }
 }
