@@ -1,19 +1,25 @@
 <script lang="ts">
+    import type { Snippet } from "svelte";
     import * as Sheet from "$lib/components/ui/sheet";
-    import { Button } from "$lib/components/ui/button";
+    import { buttonVariants } from "$lib/components/ui/button/index.js";
 
-    export let title: string;
-    export let top = "80px";
+    interface Props {
+        title: string;
+        top?: string;
+        children: Snippet<[]>;
+    }
+
+    let { title, top = "80px", children }: Props = $props();
 </script>
 
 <Sheet.Root>
-    <div class={`absolute top-[${top}] right-0 px-4`}>
-        <Sheet.Trigger>
-            <Button size="sm" class="text-xs px-2 h-6">{title}</Button>
+    <div class={`absolute right-0 px-4`} style:top={top}>
+        <Sheet.Trigger class={`${buttonVariants({ variant: "default" })} text-xs px-2 h-6`}>
+            {title}
         </Sheet.Trigger>
     </div>
 
     <Sheet.Content>
-        <slot />
+        {@render children()}
     </Sheet.Content>
 </Sheet.Root>

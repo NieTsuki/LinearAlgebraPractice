@@ -14,7 +14,7 @@
     let graph3D: Graph3D;
 </script>
 
-<Tabs.Root>
+<Tabs.Root value="2D">
     <div class="flex justify-center absolute w-full p-4">
         <Tabs.List>
             <Tabs.Trigger value="2D" class="font-bold">2D</Tabs.Trigger>
@@ -37,7 +37,7 @@
             <div class="absolute top-0 right-0 p-4">
                 <Button
                     size="sm"
-                    on:click={() => {
+                    onclick={() => {
                         LocalStorage.setGraph2DData(null);
                         graph2D.data = LocalStorage.getGraph2DData();
                     }}
@@ -63,7 +63,7 @@
             <div class="absolute top-0 right-0 p-4">
                 <Button
                     size="sm"
-                    on:click={() => {
+                    onclick={() => {
                         LocalStorage.setGraph3DData(null);
                         graph3D.data = LocalStorage.getGraph3DData();
                     }}
