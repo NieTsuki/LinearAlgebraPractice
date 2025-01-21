@@ -4,6 +4,7 @@ import { Vector2 } from "$lib/structures";
 
 export interface Graph2DData {
     size: number;
+    gridLines: "hidden" | "minimal" | "full";
     vectors: {[name: string]: Vector2};
 }
 
@@ -25,7 +26,7 @@ export default class Graph2D extends Sketch {
 
     draw() {
         this.p5.background(0);
-        this.drawGrid();
+        if (this.data.gridLines !== "hidden") this.drawGrid();
         this.drawVectors();
     }
 
@@ -34,22 +35,26 @@ export default class Graph2D extends Sketch {
     }
 
     drawGrid() {
+        const isFull = this.data.gridLines === "full";
+
         this.p5.push();
-        this.p5.stroke(255, 100);
+        this.p5.stroke(245, 51, 82, 100);
         this.p5.line(0, this.p5.height / 2, this.p5.width, this.p5.height / 2);
+        this.p5.stroke(135, 214, 2, 100);
         this.p5.line(this.p5.width / 2, 0, this.p5.width / 2, this.p5.height);
+        this.p5.stroke(255, 20);
 
         for (let i = 1; i < this.data.size; i++) {
             this.p5.line(
                 this.cellSize[0] * i,
-                this.p5.height / 2 - 10,
+                isFull ? 0 : this.p5.height / 2 - 10,
                 this.cellSize[0] * i,
-                this.p5.height / 2 + 10,
+                isFull ? this.p5.height : this.p5.height / 2 + 10,
             );
             this.p5.line(
-                this.p5.width / 2 - 10,
+                isFull ? 0 : this.p5.width / 2 - 10,
                 this.cellSize[1] * i,
-                this.p5.width / 2 + 10,
+                isFull ? this.p5.width : this.p5.width / 2 + 10,
                 this.cellSize[1] * i,
             );
         }
