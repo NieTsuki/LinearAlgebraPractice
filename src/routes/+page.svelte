@@ -3,12 +3,9 @@
     import type { p5 } from "p5-svelte";
     import * as Tabs from "$lib/components/ui/tabs";
     import Graph2D from "./graph2D";
+    import Graph3D from "./graph3D";
 
     let sketchParent: HTMLDivElement;
-
-    function sketch(p5: p5) {
-        new Graph2D(p5, sketchParent);
-    }
 </script>
 
 <Tabs.Root>
@@ -21,11 +18,11 @@
 
     <div bind:this={sketchParent} class="w-screen h-screen">
         <Tabs.Content value="2D" class="m-0">
-            <P5 {sketch} />
+            <P5 sketch={(p5: p5) => new Graph2D(p5, sketchParent)} />
         </Tabs.Content>
 
         <Tabs.Content value="3D" class="m-0">
-            <P5 {sketch} />
+            <P5 sketch={(p5: p5) => new Graph3D(p5, sketchParent)} />
         </Tabs.Content>
     </div>
 </Tabs.Root>
