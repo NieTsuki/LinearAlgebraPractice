@@ -2,7 +2,9 @@
     import P5 from "p5-svelte";
     import type { p5 } from "p5-svelte";
     import * as Tabs from "$lib/components/ui/tabs";
+    import * as Sheet from "$lib/components/ui/sheet";
     import { Button } from "$lib/components/ui/button";
+    import SideSheet from "$lib/components/sheet.svelte";
     import LocalStorage from "$lib/data";
     import Graph2D from "./graph2D";
     import Graph3D from "./graph3D";
@@ -14,7 +16,7 @@
 
 <Tabs.Root>
     <div class="flex justify-center absolute w-full p-4">
-        <Tabs.List class="bg-foreground">
+        <Tabs.List>
             <Tabs.Trigger value="2D" class="font-bold">2D</Tabs.Trigger>
             <Tabs.Trigger value="3D" class="font-bold">3D</Tabs.Trigger>
         </Tabs.List>
@@ -34,7 +36,6 @@
 
             <div class="absolute top-0 right-0 p-4">
                 <Button
-                    variant="outline"
                     size="sm"
                     on:click={() => {
                         LocalStorage.setGraph2DData(null);
@@ -42,6 +43,10 @@
                     }}
                 >Reset</Button>
             </div>
+
+            <SideSheet title="Options">
+                <Sheet.Title></Sheet.Title>
+            </SideSheet>
         </Tabs.Content>
 
         <Tabs.Content value="3D" class="m-0">
@@ -57,7 +62,6 @@
 
             <div class="absolute top-0 right-0 p-4">
                 <Button
-                    variant="outline"
                     size="sm"
                     on:click={() => {
                         LocalStorage.setGraph3DData(null);
@@ -65,6 +69,10 @@
                     }}
                 >Reset</Button>
             </div>
+
+            <SideSheet title="Options">
+                <Sheet.Title></Sheet.Title>
+            </SideSheet>
         </Tabs.Content>
     </div>
 </Tabs.Root>
