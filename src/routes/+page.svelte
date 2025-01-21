@@ -2,12 +2,12 @@
     import P5 from "p5-svelte";
     import type { p5 } from "p5-svelte";
     import * as Tabs from "$lib/components/ui/tabs";
-    import Sketch2D from "./sketch";
+    import Graph2D from "./graph2D";
 
     let sketchParent: HTMLDivElement;
 
     function sketch(p5: p5) {
-        new Sketch2D(p5, sketchParent);
+        new Graph2D(p5, sketchParent);
     }
 </script>
 

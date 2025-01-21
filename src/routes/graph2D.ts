@@ -1,7 +1,7 @@
 import Sketch from "$lib/sketch";
 import { Vector2, VectorDrawStyle } from "$lib/structures";
 
-export default class Sketch2D extends Sketch {
+export default class Graph2D extends Sketch {
     // Settings
     SIZE = 20;
 
