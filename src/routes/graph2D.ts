@@ -1,4 +1,3 @@
-import type { p5 } from "p5-svelte";
 import Sketch from "$lib/sketch";
 import LocalStorage from "$lib/data";
 import { Vector2 } from "$lib/structures";
@@ -10,15 +9,12 @@ export interface Graph2DData {
 }
 
 export default class Graph2D extends Sketch {
-    data: Graph2DData;
+    data!: Graph2DData;
     cellSize!: [number, number];
 
-    constructor(p5: p5, w: number, h: number, data: Graph2DData) {
-        super(p5, w, h);
-        this.data = data;
-    }
-
     setup() {
+        this.data = LocalStorage.getGraph2DData();
+
         const canvas = this.p5.createCanvas(this.w, this.h);
         canvas.mouseClicked((event) => this.mouseClicked(event));
 

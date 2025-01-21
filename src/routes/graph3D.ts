@@ -1,4 +1,3 @@
-import type { p5 } from "p5-svelte";
 import Sketch from "$lib/sketch";
 import LocalStorage from "$lib/data";
 import { Vector3 } from "$lib/structures";
@@ -15,13 +14,8 @@ export interface Graph3DData {
 }
 
 export default class Graph3D extends Sketch {
-    data: Graph3DData;
+    data!: Graph3DData;
     cellSize!: [number, number, number];
-
-    constructor(p5: p5, w: number, h: number, data: Graph3DData) {
-        super(p5, w, h);
-        this.data = data;
-    }
 
     async _handleGestures(canvas: HTMLCanvasElement) {
         const hammerjs = await import("hammerjs");
@@ -38,6 +32,8 @@ export default class Graph3D extends Sketch {
     }
 
     setup() {
+        this.data = LocalStorage.getGraph3DData();
+
         const canvas = this.p5.createCanvas(this.w, this.h, this.p5.WEBGL);
 
         this.cellSize = [
