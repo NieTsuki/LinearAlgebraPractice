@@ -3,6 +3,7 @@
     import P5 from "p5-svelte";
     import type { p5 } from "p5-svelte";
     import * as Tabs from "$lib/components/ui/tabs";
+    import { Button } from "$lib/components/ui/button";
     import LocalStorage from "$lib/data";
     import Graph2D from "./graph2D";
     import Graph3D from "./graph3D";
@@ -10,8 +11,10 @@
     import type { Graph3DData } from "./graph3D";
 
     let sketchParent: HTMLDivElement;
-    let graph2DData: Graph2DData;
-    let graph3DData: Graph3DData;
+    let graph2D: Graph2D;
+    let graph3D: Graph3D;
+    let graph2DData: Graph2DData | undefined = $state();
+    let graph3DData: Graph3DData | undefined = $state();
 
     onMount(() => {
         graph2DData = LocalStorage.getGraph2DData();
@@ -29,11 +32,45 @@
 
     <div bind:this={sketchParent} class="w-screen h-screen">
         <Tabs.Content value="2D" class="m-0">
-            <P5 sketch={(p5: p5) => new Graph2D(p5, sketchParent, graph2DData)} />
+            {#if graph2DData !== undefined}
+                {@const data = graph2DData}
+                <P5 sketch={(p5: p5) => {
+                    graph2D = new Graph2D(p5, sketchParent, data);
+                }} />
+
+                <div class="absolute top-0 right-0 p-4">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        on:click={() => {
+                            LocalStorage.setGraph2DData(null);
+                            graph2DData = LocalStorage.getGraph2DData();
+                            graph2D.data = graph2DData;
+                        }}
+                    >Reset</Button>
+                </div>
+            {/if}
         </Tabs.Content>
 
         <Tabs.Content value="3D" class="m-0">
-            <P5 sketch={(p5: p5) => new Graph3D(p5, sketchParent, graph3DData)} />
+            {#if graph3DData !== undefined}
+                {@const data = graph3DData}
+                <P5 sketch={(p5: p5) => {
+                    graph3D = new Graph3D(p5, sketchParent, data);
+                }} />
+
+                <div class="absolute top-0 right-0 p-4">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        on:click={() => {
+                            LocalStorage.setGraph3DData(null);
+                            graph3DData = LocalStorage.getGraph3DData();
+                            graph3D.data = graph3DData;
+                        }}
+                    >Reset</Button>
+                </div>
+            {/if}
         </Tabs.Content>
     </div>
 </Tabs.Root>

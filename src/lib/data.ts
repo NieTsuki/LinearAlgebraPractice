@@ -28,10 +28,20 @@ export default class LocalStorage {
     }
 
     static setGraph2DData(data: Graph2DData | null) {
+        if (data === null) {
+            localStorage.removeItem("graph2DData");
+            return;
+        }
+
         localStorage.setItem("graph2DData", JSON.stringify(data));
     }
 
     static setGraph3DData(data: Graph3DData | null) {
+        if (data === null) {
+            localStorage.removeItem("graph3DData");
+            return;
+        }
+
         localStorage.setItem("graph3DData", JSON.stringify(data));
     }
 }
