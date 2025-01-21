@@ -18,6 +18,7 @@
     const graph3DData: Graph3DData = {
         size: 20,
         vectors: {"a": new Vector3(1, 1, 1)},
+        rotate: {x: 0, y: 0, z: 0},
     };
 </script>
 

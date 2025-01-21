@@ -60,16 +60,9 @@ export default class Graph2D extends Sketch {
     drawVectors() {
         const size = 150 / this.data.size;
 
-        this.p5.push();
-        this.p5.translate(this.p5.width / 2, this.p5.height / 2);
-        this.p5.stroke(255);
-        this.p5.strokeWeight(2);
-
         for (const vector of this.getVectorsArray()) {
             vector.draw(this.p5, size, this.cellSize[0], this.cellSize[1]);
         }
-
-        this.p5.pop();
     }
 
     mouseClicked(event: PointerEvent) {
