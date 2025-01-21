@@ -1,5 +1,6 @@
 import type { p5 } from "p5-svelte";
 import Sketch from "$lib/sketch";
+import LocalStorage from "$lib/data";
 import { Vector3 } from "$lib/structures";
 
 export interface Graph3DData {
@@ -22,14 +23,30 @@ export default class Graph3D extends Sketch {
         this.data = data;
     }
 
+    async _handleGestures(canvas: HTMLCanvasElement) {
+        const hammerjs = await import("hammerjs");
+        const hammer = new hammerjs.default(canvas);
+
+        hammer.on("pan", (event: HammerInput) => {
+            this.data.rotate.x -= event.velocityY;
+            this.data.rotate.y += event.velocityX;
+        });
+
+        hammer.on("panend", () => {
+            LocalStorage.setGraph3DData(this.data);
+        });
+    }
+
     setup() {
-        this.p5.createCanvas(this.w, this.h, this.p5.WEBGL);
+        const canvas = this.p5.createCanvas(this.w, this.h, this.p5.WEBGL);
 
         this.cellSize = [
             this.p5.width / this.data.size,
             this.p5.height / this.data.size,
             this.p5.width / this.data.size,
         ];
+
+        this._handleGestures(canvas.elt);
     }
 
     draw() {
