@@ -1,6 +1,6 @@
 import type { p5 } from "p5-svelte";
 import Sketch from "$lib/sketch";
-import { Vector2, VectorDrawStyle } from "$lib/structures";
+import { Vector2 } from "$lib/structures";
 
 export interface Graph2DData {
     size: number;
@@ -66,20 +66,7 @@ export default class Graph2D extends Sketch {
         this.p5.strokeWeight(2);
 
         for (const vector of this.getVectorsArray()) {
-            const x = vector.x * this.cellSize[0];
-            const y = -vector.y * this.cellSize[1];
-
-            if (vector.style === VectorDrawStyle.ARROW) {
-                this.p5.line(0, 0, x, y);
-                this.p5.push();
-                const angle = this.p5.atan2(-y, -x);
-                this.p5.translate(x, y);
-                this.p5.rotate(angle - this.p5.HALF_PI);
-                this.p5.triangle(-size * 0.6, size * 1.5, size * 0.6, size * 1.5, 0, 0);
-                this.p5.pop();
-            } else {
-                this.p5.circle(x, y, size);
-            }
+            vector.draw(this.p5, size, this.cellSize[0], this.cellSize[1]);
         }
 
         this.p5.pop();
