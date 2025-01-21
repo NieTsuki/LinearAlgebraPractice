@@ -45,6 +45,9 @@ importers:
       globals:
         specifier: ^15.14.0
         version: 15.14.0
+      p5:
+        specifier: ^1.11.2
+        version: 1.11.2
       svelte:
         specifier: ^5.0.0
         version: 5.19.0

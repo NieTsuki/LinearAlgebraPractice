@@ -1,81 +1,83 @@
-import type { p5 } from "p5-svelte";
+import Sketch from "$lib/sketch";
 import { Vector2, VectorDrawStyle } from "$lib/structures";
 
-// Settings
-const SIZE = 20;
+export default class Sketch2D extends Sketch {
+    // Settings
+    SIZE = 20;
 
-const vectors: Vector2[] = [new Vector2(1, 1)];
+    vectors: Vector2[] = [new Vector2(1, 1)];
+    cellSize!: [number, number];
 
-let cellSize: [number, number];
+    setup() {
+        const canvas = this.p5.createCanvas(this.parent.clientWidth, this.parent.clientHeight);
+        canvas.mouseClicked((event) => this.mouseClicked(event));
 
-export function setup(p5: p5, parent: HTMLDivElement) {
-    p5.createCanvas(parent.clientWidth, parent.clientHeight);
-
-    cellSize = [p5.width / SIZE, p5.height / SIZE];
-}
-
-export function draw(p5: p5) {
-    p5.background(0);
-    drawGrid(p5);
-    drawVectors(p5);
-}
-
-function drawGrid(p5: p5) {
-    p5.push();
-    p5.stroke(255, 100);
-    p5.line(0, p5.height / 2, p5.width, p5.height / 2);
-    p5.line(p5.width / 2, 0, p5.width / 2, p5.height);
-
-    for (let i = 1; i < SIZE; i++) {
-        p5.line(
-            cellSize[0] * i,
-            p5.height / 2 - 10,
-            cellSize[0] * i,
-            p5.height / 2 + 10,
-        );
-        p5.line(
-            p5.width / 2 - 10,
-            cellSize[1] * i,
-            p5.width / 2 + 10,
-            cellSize[1] * i,
-        );
+        this.cellSize = [this.p5.width / this.SIZE, this.p5.height / this.SIZE];
     }
 
-    p5.pop();
-}
+    draw() {
+        this.p5.background(0);
+        this.drawGrid();
+        this.drawVectors();
+    }
 
-function drawVectors(p5: p5) {
-    const size = 150 / SIZE;
+    drawGrid() {
+        this.p5.push();
+        this.p5.stroke(255, 100);
+        this.p5.line(0, this.p5.height / 2, this.p5.width, this.p5.height / 2);
+        this.p5.line(this.p5.width / 2, 0, this.p5.width / 2, this.p5.height);
 
-    p5.push();
-    p5.translate(p5.width / 2, p5.height / 2);
-    p5.stroke(255);
-    p5.strokeWeight(2);
-
-    for (const vector of vectors) {
-        const x = vector.x * cellSize[0];
-        const y = -vector.y * cellSize[1];
-
-        if (vector.style === VectorDrawStyle.ARROW) {
-            p5.line(0, 0, x, y);
-            p5.push();
-            const angle = p5.atan2(-y, -x);
-            p5.translate(x, y);
-            p5.rotate(angle - p5.HALF_PI);
-            p5.triangle(-size * 0.6, size * 1.5, size * 0.6, size * 1.5, 0, 0);
-            p5.pop();
-        } else {
-            p5.circle(x, y, size);
+        for (let i = 1; i < this.SIZE; i++) {
+            this.p5.line(
+                this.cellSize[0] * i,
+                this.p5.height / 2 - 10,
+                this.cellSize[0] * i,
+                this.p5.height / 2 + 10,
+            );
+            this.p5.line(
+                this.p5.width / 2 - 10,
+                this.cellSize[1] * i,
+                this.p5.width / 2 + 10,
+                this.cellSize[1] * i,
+            );
         }
+
+        this.p5.pop();
     }
 
-    p5.pop();
-}
+    drawVectors() {
+        const size = 150 / this.SIZE;
 
-export function mouseClicked(p5: p5, event: PointerEvent) {
-    const offsetX = p5.map(event.offsetX, 0, p5.width, -p5.width / 2, p5.width / 2);
-    const offsetY = p5.map(event.offsetY, 0, p5.height, p5.height / 2, -p5.height / 2);
-    const x = offsetX / cellSize[0];
-    const y = offsetY / cellSize[1];
-    vectors.push(new Vector2(x, y));
+        this.p5.push();
+        this.p5.translate(this.p5.width / 2, this.p5.height / 2);
+        this.p5.stroke(255);
+        this.p5.strokeWeight(2);
+
+        for (const vector of this.vectors) {
+            const x = vector.x * this.cellSize[0];
+            const y = -vector.y * this.cellSize[1];
+
+            if (vector.style === VectorDrawStyle.ARROW) {
+                this.p5.line(0, 0, x, y);
+                this.p5.push();
+                const angle = this.p5.atan2(-y, -x);
+                this.p5.translate(x, y);
+                this.p5.rotate(angle - this.p5.HALF_PI);
+                this.p5.triangle(-size * 0.6, size * 1.5, size * 0.6, size * 1.5, 0, 0);
+                this.p5.pop();
+            } else {
+                this.p5.circle(x, y, size);
+            }
+        }
+
+        this.p5.pop();
+    }
+
+    mouseClicked(event: PointerEvent) {
+        const offsetX = this.p5.map(event.offsetX, 0, this.p5.width, -this.p5.width / 2, this.p5.width / 2);
+        const offsetY = this.p5.map(event.offsetY, 0, this.p5.height, this.p5.height / 2, -this.p5.height / 2);
+        const x = offsetX / this.cellSize[0];
+        const y = offsetY / this.cellSize[1];
+        this.vectors.push(new Vector2(x, y));
+    }
 }
