@@ -1,18 +1,26 @@
+import type { p5 } from "p5-svelte";
 import Sketch from "$lib/sketch";
 import { Vector2, VectorDrawStyle } from "$lib/structures";
 
-export default class Graph2D extends Sketch {
-    // Settings
-    SIZE = 20;
+export interface Graph2DData {
+    size: number;
+    vectors: {[name: string]: Vector2};
+}
 
-    vectors: Vector2[] = [new Vector2(1, 1)];
+export default class Graph2D extends Sketch {
+    data: Graph2DData;
     cellSize!: [number, number];
+
+    constructor(p5: p5, parent: HTMLDivElement, data: Graph2DData) {
+        super(p5, parent);
+        this.data = data;
+    }
 
     setup() {
         const canvas = this.p5.createCanvas(this.parent.clientWidth, this.parent.clientHeight);
         canvas.mouseClicked((event) => this.mouseClicked(event));
 
-        this.cellSize = [this.p5.width / this.SIZE, this.p5.height / this.SIZE];
+        this.cellSize = [this.p5.width / this.data.size, this.p5.height / this.data.size];
     }
 
     draw() {
@@ -21,13 +29,17 @@ export default class Graph2D extends Sketch {
         this.drawVectors();
     }
 
+    getVectorsArray(): Vector2[] {
+        return Object.values(this.data.vectors);
+    }
+
     drawGrid() {
         this.p5.push();
         this.p5.stroke(255, 100);
         this.p5.line(0, this.p5.height / 2, this.p5.width, this.p5.height / 2);
         this.p5.line(this.p5.width / 2, 0, this.p5.width / 2, this.p5.height);
 
-        for (let i = 1; i < this.SIZE; i++) {
+        for (let i = 1; i < this.data.size; i++) {
             this.p5.line(
                 this.cellSize[0] * i,
                 this.p5.height / 2 - 10,
@@ -46,14 +58,14 @@ export default class Graph2D extends Sketch {
     }
 
     drawVectors() {
-        const size = 150 / this.SIZE;
+        const size = 150 / this.data.size;
 
         this.p5.push();
         this.p5.translate(this.p5.width / 2, this.p5.height / 2);
         this.p5.stroke(255);
         this.p5.strokeWeight(2);
 
-        for (const vector of this.vectors) {
+        for (const vector of this.getVectorsArray()) {
             const x = vector.x * this.cellSize[0];
             const y = -vector.y * this.cellSize[1];
 
@@ -78,6 +90,6 @@ export default class Graph2D extends Sketch {
         const offsetY = this.p5.map(event.offsetY, 0, this.p5.height, this.p5.height / 2, -this.p5.height / 2);
         const x = offsetX / this.cellSize[0];
         const y = offsetY / this.cellSize[1];
-        this.vectors.push(new Vector2(x, y));
+        this.data.vectors[`${x}, ${y}`] = new Vector2(x, y);
     }
 }

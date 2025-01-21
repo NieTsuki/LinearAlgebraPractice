@@ -2,10 +2,23 @@
     import P5 from "p5-svelte";
     import type { p5 } from "p5-svelte";
     import * as Tabs from "$lib/components/ui/tabs";
+    import { Vector2, Vector3 } from "$lib/structures";
     import Graph2D from "./graph2D";
     import Graph3D from "./graph3D";
+    import type { Graph2DData } from "./graph2D";
+    import type { Graph3DData } from "./graph3D";
 
     let sketchParent: HTMLDivElement;
+
+    const graph2DData: Graph2DData = {
+        size: 20,
+        vectors: {"a": new Vector2(1, 1)},
+    };
+
+    const graph3DData: Graph3DData = {
+        size: 20,
+        vectors: {"a": new Vector3(1, 1, 1)},
+    };
 </script>
 
 <Tabs.Root>
@@ -18,11 +31,11 @@
 
     <div bind:this={sketchParent} class="w-screen h-screen">
         <Tabs.Content value="2D" class="m-0">
-            <P5 sketch={(p5: p5) => new Graph2D(p5, sketchParent)} />
+            <P5 sketch={(p5: p5) => new Graph2D(p5, sketchParent, graph2DData)} />
         </Tabs.Content>
 
         <Tabs.Content value="3D" class="m-0">
-            <P5 sketch={(p5: p5) => new Graph3D(p5, sketchParent)} />
+            <P5 sketch={(p5: p5) => new Graph3D(p5, sketchParent, graph3DData)} />
         </Tabs.Content>
     </div>
 </Tabs.Root>
