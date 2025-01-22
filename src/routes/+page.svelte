@@ -48,6 +48,7 @@
                 <CommonOptions
                     bind:size={graph2D.data.size}
                     bind:gridLines={graph2D.data.gridLines}
+                    bind:vectorStyle={graph2D.data.vectorStyle}
                 />
             </SideSheet>
         </Tabs.Content>
@@ -77,6 +78,7 @@
                 <CommonOptions
                     bind:size={graph3D.data.size}
                     bind:gridLines={graph3D.data.gridLines}
+                    bind:vectorStyle={graph3D.data.vectorStyle}
                 />
             </SideSheet>
         </Tabs.Content>

@@ -5,7 +5,7 @@ import { Vector3 } from "$lib/structures";
 export interface Graph3DData {
     size: number;
     gridLines: "hidden" | "minimal" | "full";
-    vectorStyle: "arrow" | "point",
+    vectorStyle: "arrow" | "point";
     vectors: {[name: string]: [number, number, number]};
     rotate: {
         x: number;

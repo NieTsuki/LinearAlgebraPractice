@@ -6,11 +6,13 @@
     interface Props {
         size: number;
         gridLines: "hidden" | "minimal" | "full";
+        vectorStyle: "arrow" | "point";
     }
 
     let {
         size = $bindable(),
-        gridLines = $bindable()
+        gridLines = $bindable(),
+        vectorStyle = $bindable(),
     }: Props = $props();
 </script>
 
@@ -35,6 +37,21 @@
         <div class="flex items-center space-x-2">
             <RadioGroup.Item value="full" />
             <span>Full</span>
+        </div>
+    </RadioGroup.Root>
+</div>
+
+<div class="mt-10">
+    <Sheet.Title>Vector Style</Sheet.Title>
+    <RadioGroup.Root bind:value={vectorStyle}>
+        <div class="flex items-center space-x-2">
+            <RadioGroup.Item value="arrow" />
+            <span>Arrow</span>
+        </div>
+
+        <div class="flex items-center space-x-2">
+            <RadioGroup.Item value="point" />
+            <span>Point</span>
         </div>
     </RadioGroup.Root>
 </div>

@@ -5,7 +5,7 @@ import { Vector2 } from "$lib/structures";
 export interface Graph2DData {
     size: number;
     gridLines: "hidden" | "minimal" | "full";
-    vectorStyle: "arrow" | "point",
+    vectorStyle: "arrow" | "point";
     vectors: {[name: string]: [number, number]};
 }
 
