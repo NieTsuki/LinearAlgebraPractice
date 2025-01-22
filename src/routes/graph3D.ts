@@ -154,6 +154,8 @@ export default class Graph3D extends Sketch {
             const rotZ = Math.atan2(x, -y);
             const rotX = Math.atan2(-z, Math.sqrt(x ** 2 + y ** 2));
 
+            this.p5.push();
+
             if (this.data.vectorStyle === "arrow") {
                 this.p5.rotateZ(rotZ);
                 this.p5.rotateX(rotX);
@@ -167,6 +169,8 @@ export default class Graph3D extends Sketch {
                 this.p5.translate(x, y, z);
                 this.p5.sphere(size * 2);
             }
+
+            this.p5.pop();
         }
     }
 }

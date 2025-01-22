@@ -95,8 +95,9 @@ export default class Graph2D extends Sketch {
         const offsetY = this.p5.map(event.offsetY, 0, this.p5.height, this.p5.height / 2, -this.p5.height / 2);
         const x = offsetX / this.cellSize[0];
         const y = offsetY / this.cellSize[1];
+        const name = Date.now().toString();
 
-        this.data.vectors[`${x}, ${y}`] = [x, y];
+        this.data.vectors[name] = [x, y];
         LocalStorage.setGraph2DData(this.data);
     }
 }

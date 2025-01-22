@@ -6,6 +6,7 @@
     interface Props {
         title: string;
         top?: string;
+        contentClass?: string;
         onOpen?: () => void;
         onClose?: () => void;
         children: Snippet<[]>;
@@ -14,10 +15,20 @@
     let {
         title,
         top = "80px",
+        contentClass,
         onOpen,
         onClose,
         children
     }: Props = $props();
+
+    // svelte-ignore non_reactive_update
+    let cc = "p-8 bg-background/[0.8] overflow-auto border-none ";
+
+    if (contentClass !== undefined) {
+        cc += contentClass;
+    } else {
+        cc += "sm:max-w-sm";
+    }
 </script>
 
 <Sheet.Root onOpenChange={(isOpen: boolean) => {
@@ -33,9 +44,7 @@
         </Sheet.Trigger>
     </div>
 
-    <Sheet.Content class="bg-background/[0.5] border-none" side="left">
-        <div class="scale-90">
-            {@render children()}
-        </div>
+    <Sheet.Content class={cc}>
+        {@render children()}
     </Sheet.Content>
 </Sheet.Root>

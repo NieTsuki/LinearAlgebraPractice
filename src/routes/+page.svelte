@@ -8,10 +8,11 @@
     import Graph2D from "./graph2D";
     import Graph3D from "./graph3D";
     import CommonOptions from "./commonOptions.svelte";
+    import VectorsEditor from "./vectorsEditor.svelte";
 
     let container: HTMLDivElement;
-    let graph2D: Graph2D;
-    let graph3D: Graph3D;
+    let graph2D: Graph2D | undefined;
+    let graph3D: Graph3D | undefined;
 </script>
 
 <Tabs.Root value="2D">
@@ -34,25 +35,37 @@
                 }}
             />
 
-            <div class="absolute top-0 right-0 p-4">
-                <Button
-                    size="sm"
-                    onclick={() => {
-                        LocalStorage.setGraph2DData(null);
-                        graph2D.data = LocalStorage.getGraph2DData();
-                    }}
-                >Reset</Button>
-            </div>
+            {#if graph2D !== undefined}
+                {@const graph = graph2D}
 
-            <SideSheet title="Options" onClose={() => {
-                LocalStorage.setGraph2DData(graph2D.data);
-            }}>
-                <CommonOptions
-                    bind:size={graph2D.data.size}
-                    bind:gridLines={graph2D.data.gridLines}
-                    bind:vectorStyle={graph2D.data.vectorStyle}
+                <div class="absolute top-0 right-0 p-4">
+                    <Button
+                        size="sm"
+                        onclick={() => {
+                            LocalStorage.setGraph2DData(null);
+                            graph.data = LocalStorage.getGraph2DData();
+                        }}
+                    >Reset</Button>
+                </div>
+
+                <SideSheet title="Options" onClose={() => {
+                    LocalStorage.setGraph2DData(graph.data);
+                }}>
+                    <CommonOptions
+                        bind:size={graph2D.data.size}
+                        bind:gridLines={graph2D.data.gridLines}
+                        bind:vectorStyle={graph2D.data.vectorStyle}
+                    />
+                </SideSheet>
+
+                <VectorsEditor
+                    is3D={false}
+                    bind:vectors={graph2D.data.vectors}
+                    onEdit={() => {
+                        LocalStorage.setGraph2DData(graph.data);
+                    }}
                 />
-            </SideSheet>
+            {/if}
         </Tabs.Content>
 
         <Tabs.Content value="3D" class="m-0">
@@ -66,25 +79,37 @@
                 }}
             />
 
-            <div class="absolute top-0 right-0 p-4">
-                <Button
-                    size="sm"
-                    onclick={() => {
-                        LocalStorage.setGraph3DData(null);
-                        graph3D.data = LocalStorage.getGraph3DData();
-                    }}
-                >Reset</Button>
-            </div>
+            {#if graph3D !== undefined}
+                {@const graph = graph3D}
 
-            <SideSheet title="Options" onClose={() => {
-                LocalStorage.setGraph3DData(graph3D.data);
-            }}>
-                <CommonOptions
-                    bind:size={graph3D.data.size}
-                    bind:gridLines={graph3D.data.gridLines}
-                    bind:vectorStyle={graph3D.data.vectorStyle}
+                <div class="absolute top-0 right-0 p-4">
+                    <Button
+                        size="sm"
+                        onclick={() => {
+                            LocalStorage.setGraph3DData(null);
+                            graph.data = LocalStorage.getGraph3DData();
+                        }}
+                    >Reset</Button>
+                </div>
+
+                <SideSheet title="Options" onClose={() => {
+                    LocalStorage.setGraph3DData(graph.data);
+                }}>
+                    <CommonOptions
+                        bind:size={graph3D.data.size}
+                        bind:gridLines={graph3D.data.gridLines}
+                        bind:vectorStyle={graph3D.data.vectorStyle}
+                    />
+                </SideSheet>
+
+                <VectorsEditor
+                    is3D={true}
+                    bind:vectors={graph3D.data.vectors}
+                    onEdit={() => {
+                        LocalStorage.setGraph3DData(graph.data);
+                    }}
                 />
-            </SideSheet>
+            {/if}
         </Tabs.Content>
     </div>
 </Tabs.Root>
