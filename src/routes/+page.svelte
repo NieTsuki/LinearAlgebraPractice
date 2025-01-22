@@ -2,13 +2,12 @@
     import P5 from "p5-svelte";
     import type { p5 } from "p5-svelte";
     import * as Tabs from "$lib/components/ui/tabs";
-    import * as Sheet from "$lib/components/ui/sheet";
     import { Button } from "$lib/components/ui/button";
-    import { Slider } from "$lib/components/ui/slider";
     import SideSheet from "$lib/components/sheet.svelte";
     import LocalStorage from "$lib/data";
     import Graph2D from "./graph2D";
     import Graph3D from "./graph3D";
+    import CommonOptions from "./commonOptions.svelte";
 
     let container: HTMLDivElement;
     let graph2D: Graph2D;
@@ -46,10 +45,10 @@
             </div>
 
             <SideSheet title="Options">
-                <div>
-                    <Sheet.Title>Size ({graph2D.data.size})</Sheet.Title>
-                    <Slider type="single" min={2} max={100} step={2} bind:value={graph2D.data.size} />
-                </div>
+                <CommonOptions
+                    bind:size={graph2D.data.size}
+                    bind:gridLines={graph2D.data.gridLines}
+                />
             </SideSheet>
         </Tabs.Content>
 
@@ -75,10 +74,10 @@
             </div>
 
             <SideSheet title="Options">
-                <div>
-                    <Sheet.Title>Size ({graph3D.data.size})</Sheet.Title>
-                    <Slider type="single" min={2} max={100} step={2} bind:value={graph3D.data.size} />
-                </div>
+                <CommonOptions
+                    bind:size={graph3D.data.size}
+                    bind:gridLines={graph3D.data.gridLines}
+                />
             </SideSheet>
         </Tabs.Content>
     </div>
