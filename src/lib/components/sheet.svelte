@@ -6,13 +6,27 @@
     interface Props {
         title: string;
         top?: string;
+        onOpen?: () => void;
+        onClose?: () => void;
         children: Snippet<[]>;
     }
 
-    let { title, top = "80px", children }: Props = $props();
+    let {
+        title,
+        top = "80px",
+        onOpen,
+        onClose,
+        children
+    }: Props = $props();
 </script>
 
-<Sheet.Root>
+<Sheet.Root onOpenChange={(isOpen: boolean) => {
+    if (isOpen) {
+        if (onOpen) onOpen();
+    } else {
+        if (onClose) onClose();
+    }
+}}>
     <div class={`absolute right-0 px-4`} style:top={top}>
         <Sheet.Trigger class={`${buttonVariants({ variant: "default" })} text-xs px-2 h-6`}>
             {title}

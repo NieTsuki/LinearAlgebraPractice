@@ -44,7 +44,9 @@
                 >Reset</Button>
             </div>
 
-            <SideSheet title="Options">
+            <SideSheet title="Options" onClose={() => {
+                LocalStorage.setGraph2DData(graph2D.data);
+            }}>
                 <CommonOptions
                     bind:size={graph2D.data.size}
                     bind:gridLines={graph2D.data.gridLines}
@@ -74,7 +76,9 @@
                 >Reset</Button>
             </div>
 
-            <SideSheet title="Options">
+            <SideSheet title="Options" onClose={() => {
+                LocalStorage.setGraph3DData(graph3D.data);
+            }}>
                 <CommonOptions
                     bind:size={graph3D.data.size}
                     bind:gridLines={graph3D.data.gridLines}
