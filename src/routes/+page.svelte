@@ -16,8 +16,8 @@
 </script>
 
 <Tabs.Root value="2D">
-    <div class="flex justify-center absolute w-full p-4">
-        <Tabs.List>
+    <div class="flex justify-center absolute w-full p-4 pointer-events-none">
+        <Tabs.List class="pointer-events-auto">
             <Tabs.Trigger value="2D" class="font-bold">2D</Tabs.Trigger>
             <Tabs.Trigger value="3D" class="font-bold">3D</Tabs.Trigger>
         </Tabs.List>
